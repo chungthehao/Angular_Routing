@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, OnDestroy {
   user: {id: number, name: string};
+  paramsSubscription: Subscription;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -22,12 +24,19 @@ export class UserComponent implements OnInit {
      * - Nên các tham số trên URL có thay đổi, Angular cũng "ko biết"
      * - Dùng observable để khi 'có gì đó xảy ra trong tương lai' thì nó sẽ chạy 'code mình quy định'. (async)
      */
-    this.route.params.subscribe(
+    this.paramsSubscription = this.route.params.subscribe(
       (newParams: Params) => {
         this.user.id = newParams.id;
         this.user.name = newParams.name;
       }
     );
+  }
+
+  /**
+   * Angular tự làm việc này cho mình
+   */
+  ngOnDestroy() {
+    this.paramsSubscription.unsubscribe();
   }
 
 }
