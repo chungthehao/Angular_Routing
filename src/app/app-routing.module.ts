@@ -11,28 +11,28 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthGuard } from "./auth-guard.service";
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },             // localhost:4200
-  
-    { path: 'users', component: UsersComponent, children: [
-      { path: ':id/:name', component: UserComponent },   // localhost:4200/users/1
-    ] },       // localhost:4200/users
-  
-    { 
-      path: 'servers', 
-      // canActivate: [AuthGuard], // Protect a whole route and all its child routes
-      canActivateChild: [AuthGuard], // Protect just the child routes
-      component: ServersComponent, 
-      children: [
-        { path: ':id', component: ServerComponent },
-        { path: ':id/edit', component: EditServerComponent },
-      ] 
-    },
-  
-    { path: 'not-found', component: PageNotFoundComponent },
-  
-    // Phải ở cuối cùng, khi Angular tìm ko thấy thằng nào match ở trên hết mới gặp dòng này! Vì ** match với mọi route
-    { path: '**', redirectTo: '/not-found' }
-  ];
+  { path: '', component: HomeComponent },             // localhost:4200
+
+  { path: 'users', component: UsersComponent, children: [
+    { path: ':id/:name', component: UserComponent },   // localhost:4200/users/1
+  ] },       // localhost:4200/users
+
+  { 
+    path: 'servers', 
+    // canActivate: [AuthGuard], // Protect a whole route and all its child routes
+    canActivateChild: [AuthGuard], // Protect just the child routes
+    component: ServersComponent, 
+    children: [
+      { path: ':id', component: ServerComponent },
+      { path: ':id/edit', component: EditServerComponent },
+    ] 
+  },
+
+  { path: 'not-found', component: PageNotFoundComponent },
+
+  // Phải ở cuối cùng, khi Angular tìm ko thấy thằng nào match ở trên hết mới gặp dòng này! Vì ** match với mọi route
+  { path: '**', redirectTo: '/not-found' }
+];
 @NgModule({
     imports: [
         RouterModule.forRoot(appRoutes)
