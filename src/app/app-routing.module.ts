@@ -17,10 +17,16 @@ const appRoutes: Routes = [
       { path: ':id/:name', component: UserComponent },   // localhost:4200/users/1
     ] },       // localhost:4200/users
   
-    { path: 'servers', canActivate: [AuthGuard], component: ServersComponent, children: [
-      { path: ':id', component: ServerComponent },
-      { path: ':id/edit', component: EditServerComponent },
-    ] },
+    { 
+      path: 'servers', 
+      // canActivate: [AuthGuard], // Protect a whole route and all its child routes
+      canActivateChild: [AuthGuard], // Protect just the child routes
+      component: ServersComponent, 
+      children: [
+        { path: ':id', component: ServerComponent },
+        { path: ':id/edit', component: EditServerComponent },
+      ] 
+    },
   
     { path: 'not-found', component: PageNotFoundComponent },
   
