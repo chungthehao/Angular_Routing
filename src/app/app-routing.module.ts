@@ -39,6 +39,7 @@ const appRoutes: Routes = [
 ];
 @NgModule({
     imports: [
+        // RouterModule.forRoot(appRoutes, {useHash: true})
         RouterModule.forRoot(appRoutes)
     ],
     // From this module, if I were to add this module to the imports of another module what should be accessible to this module which imports this module
